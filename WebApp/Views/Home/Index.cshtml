@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "日期列表";
+}
+
+@using Longjubank.FrameWorkCore.Helper;
+@using Entity;
+@model List<ProcDateCountModel>
+
+<div id="layetb" style="margin-top:20px">
+    <hr class="layui-bg-green">
+    @*<a href="@Url.Action("AddMatHoliday","Home")" class="layui-btn" target="_blank">添加</a>*@
+    <form class="layui-table" lay-size="sm" action="@Url.Action("Index","Home")" method="get">
+        <table class="layui-table" lay-size="sm">
+            <tr>
+                <td>开始日期:<input type="text" class="layui-input" id="txt_datestart" name="startdate" placeholder="yyyy-MM-dd" value="@Context.Request.Query["startdate"]"></td>
+                <td>天数：<input type="tel" class="layui-input" id="txt_days" name="days" placeholder="0天" value="@Context.Request.Query["days"]"></td>
+                <td><button type="submit" class="btn btn-info">查询</button></td>
+            </tr>
+        </table>
+    </form>
+    <hr class="layui-bg-green">
+    <table class="layui-table" lay-size="sm">
+        <thead><tr><th>begindate</th><th>enddate</th><th>day_counts</th><th>remark</th></tr></thead>
+        <tbody>
+            @if (Model != null && Model.Count() > 0)
+            {
+                foreach (var r in Model)
+                {
+                    <tr>
+                        <td>@r.begindate</td>
+                        <td>@r.enddate</td>
+                        <td>@r.day_counts</td>
+                        <td>@r.remark</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td colspan="5">暂无数据</td></tr>
+            }
+        </tbody>
+    </table>
+    @*<div id="divpage"></div>*@
+</div>
+<script type="text/javascript">
+
+
+    layui.use(['layer', 'laypage', 'laydate'], function () {
+
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#txt_datestart',
+            min: '2000-01-01 00:00:00',
+            max: '2099-12-31 23:59:59'
+        });
+
+        @*var laypage = layui.laypage;
+        laypage.render({
+            elem: 'divpage'
+            , count: @(Model.allRows)
+            ,limit:10
+            , theme: '#1E9FFF'
+            , curr:@(Model.PageIndex)
+            , jump: function (obj, first) {
+                if (!first) {
+                    window.location.href = '/Home/Index?pageindex=' + obj.curr;
+                }
+            }
+        });
+
+        $(".delete").on("click", function () {
+            var id = $(this).data("rid");
+            layer.confirm('是否确定删除？', {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
+                $.post('@Url.Action("Delete", "Home")', { id:id }, function (ret) {
+
+                    layer.msg(ret, {
+                        time: 20000,
+                        btn: ['确定']
+                    });
+                    window.location.reload();
+                })
+
+            }, function () {
+            });
+        })*@
+    });
+
+</script>

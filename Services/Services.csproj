@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Longjubank.FrameWorkCore.Helper" Version="1.0.0" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="6.10.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Entity\Entity.csproj" />
+    <ProjectReference Include="..\IServices\IServices.csproj" />
+  </ItemGroup>
+
+</Project>
